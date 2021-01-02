@@ -11,7 +11,7 @@ public struct SailboatRadioPlayerView: View {
     weak var delegate: SailboatRadioPlayerViewDelegate?
     
     public var body: some View {
-        VStack {
+        VStack(spacing: 100) {
             Button("Play") {
                 delegate?.play()
             }

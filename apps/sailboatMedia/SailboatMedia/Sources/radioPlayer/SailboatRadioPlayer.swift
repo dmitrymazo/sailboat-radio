@@ -15,15 +15,15 @@ public final class SailboatRadioPlayer {
     
     // MARK: - Internal
     
-    func load(url: String) throws {
+    public func load(url: String) throws {
         try player.load(url: url)
     }
     
-    func play() {
+    public func play() {
         player.play()
     }
     
-    func pause() {
+    public func pause() {
         player.pause()
     }
     
