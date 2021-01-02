@@ -6,15 +6,14 @@
 //
 
 import SwiftUI
+import SailboatMedia
 
 struct BrowseView: View {
+    
+    private let player = SailboatRadioPlayer()
+    
     var body: some View {
-        Text("Browse view")
+        player.view
     }
-}
-
-struct BrowseView_Previews: PreviewProvider {
-    static var previews: some View {
-        BrowseView()
-    }
+    
 }

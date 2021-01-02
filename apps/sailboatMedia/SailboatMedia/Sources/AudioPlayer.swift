@@ -15,7 +15,9 @@ final class AudioPlayer {
     
     private var player: AVPlayer?
     
-    func load(contentsOf urlString: String) throws {
+    // MARK: - Internal
+    
+    func load(url urlString: String) throws {
         guard let url = URL(string: urlString) else { throw AudioPlayerError.invalidUrl }
         
         let asset = AVURLAsset(url: url)
@@ -30,6 +32,8 @@ final class AudioPlayer {
     func pause() {
         self.player?.pause()
     }
+    
+    // MARK: - Init
     
     deinit {
         self.player?.replaceCurrentItem(with: nil)

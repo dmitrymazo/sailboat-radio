@@ -1,7 +1,6 @@
 name: SailboatRadio
 attributes:
   ORGANIZATIONNAME: SailboatDevelopment, Inc.
-  DevelopmentTeam: d4mazo@gmail.com
 options:
   bundleIdPrefix: d.mazo
 targets:

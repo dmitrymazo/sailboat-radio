@@ -12,9 +12,3 @@ struct AboutView: View {
         Text("About view")
     }
 }
-
-struct AboutView_Previews: PreviewProvider {
-    static var previews: some View {
-        AboutView()
-    }
-}
