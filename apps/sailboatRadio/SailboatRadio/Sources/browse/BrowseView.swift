@@ -5,7 +5,6 @@
 //  Created by Dmitry Mazo on 1/2/21.
 //
 
-import Foundation
 import SwiftUI
 import SailboatMedia
 
