@@ -1,0 +1,36 @@
+name: SailboatMedia
+options:
+  bundleIdPrefix: d.mazo
+targets:
+  SailboatMedia:
+    scheme:
+      testTargets:
+        - SailboatMediaTests
+    type: framework
+    platform: iOS
+    deploymentTarget: "14.0"
+    name: SailboatMedia
+    sources:
+        - path: SailboatMedia/Sources
+          buildPhase: sources
+          name: SailboatMedia
+        # - path: ../assets/Assets.xcassets
+        #   buildPhase: sources
+    settings:
+      configs:
+        debug:
+          CUSTOM_BUILD_SETTING: 1.0
+        release:
+          CUSTOM_BUILD_SETTING: 1.0
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: "sailboat.media.app"
+        INFOPLIST_FILE: "SailboatMedia/Info.plist"
+        TARGETED_DEVICE_FAMILY: [1, 2]
+
+  SailboatMediaTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: SailboatMediaTests
+    dependencies:
+      - target: SailboatMedia

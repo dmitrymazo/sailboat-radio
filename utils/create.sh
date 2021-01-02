@@ -1,4 +1,10 @@
+cd /Users/dmitrymazo/Developer/Sailboat
+
 cd ./apps
 
-cd sailboatRadio
+cd sailboatMedia
 xcodegen generate
+
+cd ../sailboatRadio
+xcodegen generate
+

@@ -1,4 +1,7 @@
 name: SailboatRadio
+attributes:
+  ORGANIZATIONNAME: SailboatDevelopment, Inc.
+  DevelopmentTeam: d4mazo@gmail.com
 options:
   bundleIdPrefix: d.mazo
 targets:
@@ -16,6 +19,8 @@ targets:
           name: SailboatRadio
         - path: ../assets/Assets.xcassets
           buildPhase: sources
+    dependencies:
+      - framework: sailboatMedia/SailboatMedia.framework
     settings:
       configs:
         debug:

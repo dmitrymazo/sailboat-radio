@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:apps/sailboatMedia/SailboatMedia.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:apps/sailboatRadio/SailboatRadio.xcodeproj">
    </FileRef>
 </Workspace>

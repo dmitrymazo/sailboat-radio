@@ -1,7 +1,8 @@
 *.resolved
 /Carthage
 *.xcuserstate
-.DS_Store/Sailboat.xcworkspace/xcuserdata
+.DS_Store
+/Sailboat.xcworkspace/xcuserdata
 *.xcarchive/result
 /build
 *.xcodeproj
