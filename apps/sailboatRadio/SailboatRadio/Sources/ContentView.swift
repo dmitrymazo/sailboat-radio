@@ -12,12 +12,12 @@ struct ContentView: View {
         TabView {
             BrowseView()
                 .tabItem {
-                    Image(systemName: "phone.fill")
-                    Text("Browse")
+                    Image(systemName: "house.fill")
+                    Text("Home")
                 }
             AboutView()
                 .tabItem {
-                    Image(systemName: "phone.fill")
+                    Image(systemName: "person.circle")
                     Text("About")
                 }
         }

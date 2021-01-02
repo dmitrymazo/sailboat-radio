@@ -60,6 +60,8 @@ protocol RadioPlayer: AnyObject {
 }
 
 protocol SailboatRadioPlayerViewDelegate: AnyObject {
+    var state: SailboatPlayerState { get }
+    var isPlaying: Bool { get }
     func play()
     func pause()
 }

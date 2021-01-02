@@ -12,11 +12,17 @@ public struct SailboatRadioPlayerView: View {
     
     public var body: some View {
         VStack(spacing: 50) {
-            Button("Play") {
-                delegate?.play()
-            }
-            Button("Pause") {
-                delegate?.pause()
+            if let delegate = delegate {
+                if delegate.state == .paused {
+                    Button("Play") {
+                        delegate.play()
+                    }
+                }
+                if delegate.isPlaying {
+                    Button("Pause") {
+                        delegate.pause()
+                    }
+                }
             }
         }
     }
