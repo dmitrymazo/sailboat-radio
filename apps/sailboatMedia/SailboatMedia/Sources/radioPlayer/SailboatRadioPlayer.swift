@@ -25,12 +25,15 @@ public final class SailboatRadioPlayer: RadioPlayer {
         return state == .playing
     }
     
+    public private(set) var currentRadioStation: RadioStationItem?
+    
     // MARK: - Private
     
     // MARK: - Public
     
-    public func load(url: URL) throws {
-        try player.load(url: url)
+    public func load(station: RadioStationItem) throws {
+        try player.load(url: station.audioUrl)
+        self.currentRadioStation = station
     }
     
     public func play() {
@@ -44,9 +47,7 @@ public final class SailboatRadioPlayer: RadioPlayer {
     // MARK: - Init
     
     public init() {
-        self.components = [
-            RemoteCommandController()
-        ]
+        self.components = SailboatRadioComponents.getList()
         let visualComponents = components.compactMap { $0 as? SailboatVisualComponent }
         
         view = SailboatRadioPlayerView(components: visualComponents.map { $0.view })
@@ -98,3 +99,14 @@ extension SailboatRadioPlayer: AudioPlayerDelegate {
 }
 
 extension SailboatRadioPlayer: ObservableObject { }
+
+public struct RadioStationItem {
+    var title: String
+    var audioUrl: URL
+    
+    public init(title: String,
+                audioUrl: URL) {
+        self.title = title
+        self.audioUrl = audioUrl
+    }
+}

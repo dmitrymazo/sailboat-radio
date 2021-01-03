@@ -24,7 +24,7 @@ struct BrowseStationCell: View {
             stationImage
                 .background(Color.red)
                 .frame(width: Constants.size, height: Constants.size)
-            VStack(spacing: 2) {
+            VStack(alignment: .leading, spacing: 2) {
                 Text("\(station.title)")
                 Text("\(station.descr)")
             }

@@ -55,7 +55,9 @@ struct BrowseView: View {
     }
     
     private func load(station: BrowseStationViewModel) {
-        try? player?.load(url: station.audioUrl)
+        let item = RadioStationItem(title: station.title,
+                                    audioUrl: station.audioUrl)
+        try? player?.load(station: item)
     }
     
     init(player: SailboatRadioPlayer) {

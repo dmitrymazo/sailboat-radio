@@ -11,10 +11,10 @@ public struct SailboatRadioPlayerView: View {
     
     private struct Constants {
         static let width: CGFloat = 90
-        static let opacity = 0.7
+        static let opacity = 0.2
     }
     
-    let color: Color = .blue
+    let color: Color = .green
     let components: [AnyView]
     
     weak var delegate: SailboatRadioPlayerViewDelegate?

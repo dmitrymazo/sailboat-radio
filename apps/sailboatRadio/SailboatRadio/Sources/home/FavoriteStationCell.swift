@@ -23,6 +23,7 @@ struct FavoriteStationCell: View {
                 .background(Color.red)
                 .frame(width: Constants.size, height: Constants.size)
             Text("\(station.title)")
+                .lineLimit(1)
         }
     }
     
