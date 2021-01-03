@@ -34,7 +34,7 @@ struct FavoriteStationCell: View {
                     .resizable()
                     .cornerRadius(3)
             } else {
-                Image("musicNote")
+                Image("music-note")
                     .resizable()
             }
         }

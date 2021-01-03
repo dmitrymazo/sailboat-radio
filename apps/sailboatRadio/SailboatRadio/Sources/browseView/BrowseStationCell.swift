@@ -39,7 +39,7 @@ struct BrowseStationCell: View {
                 Image(uiImage: image)
                     .resizable()
             } else {
-                Image("musicNote")
+                Image("music-note")
                     .resizable()
             }
         }

@@ -63,6 +63,7 @@ public final class SailboatRadioPlayer: RadioPlayer {
 
 protocol RadioPlayer: AnyObject {
     var state: SailboatPlayerState { get }
+    var currentRadioStation: RadioStationItem? { get }
     var isPlaying: Bool { get }
     func play()
     func pause()

@@ -20,8 +20,10 @@ public struct SailboatRadioPlayerView: View {
     weak var delegate: SailboatRadioPlayerViewDelegate?
     
     private var mainView: some View {
-        ForEach(0..<components.count) { index in
-            components[index]
+        HStack {
+            ForEach(0..<components.count) { index in
+                components[index]
+            }
         }
     }
     

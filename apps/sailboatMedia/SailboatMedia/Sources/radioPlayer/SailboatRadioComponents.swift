@@ -8,18 +8,21 @@
 import SwiftUI
 
 struct SailboatRadioComponents {
+    
     static func getList() -> [SailboatComponent] {
-        var playButtonView = PlayButtonView(imageName: "play-icon")
+        var playButtonView = PlayButtonView()
         let playButton = PlayButton(view: AnyView(playButtonView))
         playButtonView.delegate = playButton
         
-//        let titleView = TitleView()
-//        let titleComponent = TitleComponent(view: titleView)
+        let titleView = TitleView()
+        let titleComponent = TitleComponent(view: AnyView(titleView))
         
         return [
             RemoteCommandController(),
-//            titleComponent,
+            StationImageComponent(view: AnyView(StationImageView())),
+            titleComponent,
             playButton
         ]
     }
+    
 }
