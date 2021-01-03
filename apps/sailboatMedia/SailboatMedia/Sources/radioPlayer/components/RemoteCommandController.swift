@@ -7,11 +7,16 @@
 
 import MediaPlayer
 
-final class RemoteCommandController {
+final class RemoteCommandController: SailboatComponent {
     
-    weak var player: RadioPlayer?
+    weak var player: RadioPlayer? {
+        didSet {
+            guard player != nil else { return }
+            self.setup()
+        }
+    }
     
-    func setup() {
+    private func setup() {
         let commandCenter = MPRemoteCommandCenter.shared()
 
         commandCenter.playCommand.addTarget { [unowned self] event in

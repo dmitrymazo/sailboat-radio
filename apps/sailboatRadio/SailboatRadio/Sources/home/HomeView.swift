@@ -25,7 +25,12 @@ struct HomeView: View {
                     , id: \.self) { row in
                 HStack(spacing: 3) {
                     ForEach(row, id: \.id) { dbModel in
-                        FavoriteStationCell(station: viewModel(from: dbModel))
+                        let station = viewModel(from: dbModel)
+                        FavoriteStationCell(station: station)
+                            .onTapGesture {
+                                load(station: station)
+                                player?.play()
+                            }
                     }
                 }
             }.padding(.horizontal, 3)
@@ -54,6 +59,10 @@ struct HomeView: View {
                                         genre: "1111",
                                         audioUrl: dbModel.audioUrl,
                                         imageUrl: dbModel.imageUrl)
+    }
+    
+    private func load(station: FavoriteStationViewModel) {
+        try? player?.load(url: station.audioUrl)
     }
     
     init(player: SailboatRadioPlayer) {

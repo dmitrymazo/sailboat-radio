@@ -28,9 +28,7 @@ final class AudioPlayer {
     
     // MARK: - Internal
     
-    func load(url urlString: String) throws {
-        guard let url = URL(string: urlString) else { throw AudioPlayerError.invalidUrl }
-        
+    func load(url: URL) throws {
         state = .loading
         let asset = AVURLAsset(url: url)
         let item = AVPlayerItem(asset: asset)

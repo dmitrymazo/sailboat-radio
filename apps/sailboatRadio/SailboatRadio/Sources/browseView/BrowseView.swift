@@ -17,9 +17,14 @@ struct BrowseView: View {
     
     private var stationList: some View {
         ScrollView {
-            ForEach(service.stations) { item in
+            ForEach(service.stations) { dbModel in
                 HStack(spacing: 3) {
-                    BrowseStationCell(station: viewModel(from: item))
+                    let station = viewModel(from: dbModel)
+                    BrowseStationCell(station: station)
+                        .onTapGesture {
+                            load(station: station)
+                            player?.play()
+                        }
                 }
             }.padding(.horizontal, 3)
         }
@@ -47,6 +52,10 @@ struct BrowseView: View {
                                       genre: "222",
                                       audioUrl: dbModel.audioUrl,
                                       imageUrl: dbModel.imageUrl)
+    }
+    
+    private func load(station: BrowseStationViewModel) {
+        try? player?.load(url: station.audioUrl)
     }
     
     init(player: SailboatRadioPlayer) {

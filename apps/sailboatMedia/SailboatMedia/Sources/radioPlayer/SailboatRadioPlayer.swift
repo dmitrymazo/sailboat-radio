@@ -9,11 +9,11 @@ import Foundation
 
 public final class SailboatRadioPlayer: RadioPlayer {
     
-    public private(set) var view = SailboatRadioPlayerView()
+    public private(set) var view: SailboatRadioPlayerView
     
     private let player = AudioPlayer()
     
-    private let remoteCtrl = RemoteCommandController()
+    private let components: [SailboatComponent]
     
     // MARK: - Private properties
     
@@ -29,7 +29,7 @@ public final class SailboatRadioPlayer: RadioPlayer {
     
     // MARK: - Public
     
-    public func load(url: String) throws {
+    public func load(url: URL) throws {
         try player.load(url: url)
     }
     
@@ -44,10 +44,18 @@ public final class SailboatRadioPlayer: RadioPlayer {
     // MARK: - Init
     
     public init() {
+        self.components = [
+            RemoteCommandController()
+        ]
+        let visualComponents = components.compactMap { $0 as? SailboatVisualComponent }
+        
+        view = SailboatRadioPlayerView(components: visualComponents.map { $0.view })
         view.delegate = self
         player.delegate = self
-        remoteCtrl.player = self
-        remoteCtrl.setup()
+        
+        components.forEach { component in
+            component.player = self
+        }
     }
     
 }

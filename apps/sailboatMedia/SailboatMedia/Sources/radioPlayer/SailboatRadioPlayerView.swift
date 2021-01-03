@@ -13,26 +13,22 @@ public struct SailboatRadioPlayerView: View {
         static let width: CGFloat = 90
         static let opacity = 0.7
     }
-    var color: Color = .blue
+    
+    let color: Color = .blue
+    let components: [AnyView]
     
     weak var delegate: SailboatRadioPlayerViewDelegate?
     
-    public var body: some View {
-        
-        HStack(spacing: 30) {
-            if let delegate = delegate {
-//                if delegate.state == .paused {
-                    Button("Play") {
-                        delegate.play()
-                    }
-//                }
-//                if delegate.isPlaying {
-                    Button("Pause") {
-                        delegate.pause()
-                    }
-//                }
-            }
-        }.frame(maxWidth: .infinity, maxHeight: Constants.width)
-        .background(color.opacity(Constants.opacity))
+    private var mainView: some View {
+        ForEach(0..<components.count) { index in
+            components[index]
+        }
     }
+    
+    public var body: some View {
+        mainView
+            .frame(maxWidth: .infinity, maxHeight: Constants.width)
+            .background(color.opacity(Constants.opacity))
+    }
+    
 }

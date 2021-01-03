@@ -31,8 +31,6 @@ struct TabContentView: View {
                         Text("About")
                     }
             }
-        }.onAppear {
-            try? player?.load(url: "https://0n-country.radionetz.de/0n-country.aac")
         }
     }
     

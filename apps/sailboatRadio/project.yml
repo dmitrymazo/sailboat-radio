@@ -1,6 +1,6 @@
 name: SailboatRadio
 attributes:
-  ORGANIZATIONNAME: SailboatDevelopment, Inc.
+  ORGANIZATIONNAME: Sailboat Technologies, Inc.
 options:
   bundleIdPrefix: d.mazo
 targets:
