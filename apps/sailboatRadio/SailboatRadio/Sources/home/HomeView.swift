@@ -52,7 +52,8 @@ struct HomeView: View {
                                         title: dbModel.title,
                                         descr: dbModel.descr,
                                         genre: "1111",
-                                        audioUrl: dbModel.audioUrl)
+                                        audioUrl: dbModel.audioUrl,
+                                        imageUrl: dbModel.imageUrl)
     }
     
     init(player: SailboatRadioPlayer) {
