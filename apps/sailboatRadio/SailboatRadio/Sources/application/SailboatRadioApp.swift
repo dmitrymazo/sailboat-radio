@@ -6,14 +6,17 @@
 //
 
 import SwiftUI
+import SailboatMedia
 
 @main
 struct SailboatRadioApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
+    private var player = SailboatRadioPlayer()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabContentView(player: player)
         }
     }
 }

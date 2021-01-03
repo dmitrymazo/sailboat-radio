@@ -88,3 +88,5 @@ extension SailboatRadioPlayer: AudioPlayerDelegate {
     }
     
 }
+
+extension SailboatRadioPlayer: ObservableObject { }
