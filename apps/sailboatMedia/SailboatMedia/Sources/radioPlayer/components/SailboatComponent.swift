@@ -12,5 +12,5 @@ protocol SailboatComponent: AnyObject {
 }
 
 protocol SailboatVisualComponent: SailboatComponent {
-    var view: AnyView { get }
+    var view: AnyView? { get }
 }

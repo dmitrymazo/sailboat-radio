@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Observable
 
 public final class SailboatRadioPlayer: RadioPlayer {
     
@@ -15,16 +16,30 @@ public final class SailboatRadioPlayer: RadioPlayer {
     
     private let components: [SailboatComponent]
     
+    // MARK: - Observers
+    
+    public var stateObserver: Observable<SailboatPlayerState> {
+        return _state
+    }
+    
+    public var currentRadioStationObserver: Observable<RadioStationItem?> {
+        return _currentRadioStation
+    }
+    
+    private var disposal = Disposal()
+    
     // MARK: - Private properties
     
     // MARK: - Public properties
     
+    @MutableObservable
     public private(set) var state = SailboatPlayerState.uninitialized
     
     public var isPlaying: Bool {
         return state == .playing
     }
     
+    @MutableObservable
     public private(set) var currentRadioStation: RadioStationItem?
     
     // MARK: - Private
@@ -50,8 +65,7 @@ public final class SailboatRadioPlayer: RadioPlayer {
         self.components = SailboatRadioComponents.getList()
         let visualComponents = components.compactMap { $0 as? SailboatVisualComponent }
         
-        view = SailboatRadioPlayerView(components: visualComponents.map { $0.view })
-        view.delegate = self
+        view = SailboatRadioPlayerView(components: visualComponents.compactMap { $0.view })
         player.delegate = self
         
         components.forEach { component in
@@ -67,10 +81,13 @@ protocol RadioPlayer: AnyObject {
     var isPlaying: Bool { get }
     func play()
     func pause()
+    var stateObserver: Observable<SailboatPlayerState> { get }
+    var currentRadioStationObserver: Observable<RadioStationItem?> { get }
 }
 
 protocol SailboatRadioPlayerViewDelegate: AnyObject {
     var state: SailboatPlayerState { get }
+    var currentRadioStation: RadioStationItem? { get }
     var isPlaying: Bool { get }
     func play()
     func pause()
@@ -103,11 +120,14 @@ extension SailboatRadioPlayer: ObservableObject { }
 
 public struct RadioStationItem {
     var title: String
+    var descr: String?
     var audioUrl: URL
     
     public init(title: String,
+                descr: String,
                 audioUrl: URL) {
         self.title = title
+        self.descr = descr
         self.audioUrl = audioUrl
     }
 }

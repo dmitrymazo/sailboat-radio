@@ -1,6 +1,10 @@
 name: SailboatMedia
 options:
   bundleIdPrefix: d.mazo
+packages:
+  Observable-Swift:
+    url: https://github.com/roberthein/Observable.git
+    branch: master
 targets:
   SailboatMedia:
     scheme:
@@ -14,8 +18,11 @@ targets:
         - path: SailboatMedia/Sources
           buildPhase: sources
           name: SailboatMedia
-        # - path: ../assets/Assets.xcassets
-        #   buildPhase: sources
+        - path: assets/Assets.xcassets
+          buildPhase: sources
+    dependencies:
+        - package: Observable-Swift
+          product: Observable
     settings:
       configs:
         debug:

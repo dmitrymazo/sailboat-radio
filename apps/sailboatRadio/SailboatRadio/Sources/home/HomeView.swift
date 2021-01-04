@@ -63,6 +63,7 @@ struct HomeView: View {
     
     private func load(station: FavoriteStationViewModel) {
         let item = RadioStationItem(title: station.title,
+                                    descr: station.descr,
                                     audioUrl: station.audioUrl)
         try? player?.load(station: item)
     }

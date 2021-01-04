@@ -16,10 +16,10 @@ struct PlayButtonView: View {
     weak var delegate: ButtonDelegate?
     
     @State
-    var imageName: String = "play-icon"
+    var imageName = ""
     
     var body: some View {
-        Image(imageName)
+        Image(imageName, bundle: Bundle(for: SailboatMedia.self))
             .resizable()
             .frame(width: Constants.size, height: Constants.size)
             .onTapGesture {

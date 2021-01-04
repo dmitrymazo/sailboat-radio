@@ -13,12 +13,24 @@ struct TitleView: View {
         static let size: CGFloat = 40
     }
     
-    @State
-    var title: String = "vewwthwh"
+    @ObservedObject
+    var model: TitleModel
     
     var body: some View {
-        Text("\(title)")
-            .frame(maxWidth: 200, maxHeight: 50)
+        VStack {
+            Text("\(model.title)")
+                .frame(maxWidth: 200, maxHeight: 50)
+            Text("\(model.descr)")
+                .frame(maxWidth: 200, maxHeight: 50)
+        }
     }
     
+}
+
+final class TitleModel: ObservableObject {
+    @Published
+    var title = ""
+    
+    @Published
+    var descr = ""
 }

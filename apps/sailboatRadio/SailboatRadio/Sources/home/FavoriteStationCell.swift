@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SailboatMedia
 
 struct FavoriteStationCell: View {
     
@@ -34,7 +35,7 @@ struct FavoriteStationCell: View {
                     .resizable()
                     .cornerRadius(3)
             } else {
-                Image("music-note")
+                Image("music-note", bundle: Bundle(for: SailboatMedia.self))
                     .resizable()
             }
         }

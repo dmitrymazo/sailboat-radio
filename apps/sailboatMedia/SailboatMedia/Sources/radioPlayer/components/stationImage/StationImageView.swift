@@ -16,7 +16,7 @@ struct StationImageView: View {
     weak var delegate: ButtonDelegate?
     
     @State
-    var imageName: String = "music-note"
+    var imageName = ""
     
     var body: some View {
         Image(imageName)

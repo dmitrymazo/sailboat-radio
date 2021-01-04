@@ -11,10 +11,14 @@ final class StationImageComponent: SailboatVisualComponent {
     
     weak var player: RadioPlayer?
     
-    var view: AnyView
+    private let imageView: StationImageView?
     
-    init(view: AnyView) {
-        self.view = view
+    var view: AnyView? {
+        imageView != nil ? AnyView(imageView) : nil
+    }
+    
+    init(view: StationImageView?) {
+        self.imageView = view
     }
     
 }

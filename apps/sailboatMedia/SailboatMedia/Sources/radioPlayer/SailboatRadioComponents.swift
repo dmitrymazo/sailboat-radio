@@ -11,15 +11,15 @@ struct SailboatRadioComponents {
     
     static func getList() -> [SailboatComponent] {
         var playButtonView = PlayButtonView()
-        let playButton = PlayButton(view: AnyView(playButtonView))
+        let playButton = PlayButton(view: playButtonView)
         playButtonView.delegate = playButton
         
-        let titleView = TitleView()
-        let titleComponent = TitleComponent(view: AnyView(titleView))
+        let titleView = TitleView(model: TitleModel())
+        let titleComponent = TitleComponent(view: titleView)
         
         return [
             RemoteCommandController(),
-            StationImageComponent(view: AnyView(StationImageView())),
+            StationImageComponent(view: StationImageView()),
             titleComponent,
             playButton
         ]

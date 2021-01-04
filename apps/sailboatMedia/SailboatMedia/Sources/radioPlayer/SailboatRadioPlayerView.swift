@@ -17,8 +17,6 @@ public struct SailboatRadioPlayerView: View {
     let color: Color = .green
     let components: [AnyView]
     
-    weak var delegate: SailboatRadioPlayerViewDelegate?
-    
     private var mainView: some View {
         HStack {
             ForEach(0..<components.count) { index in

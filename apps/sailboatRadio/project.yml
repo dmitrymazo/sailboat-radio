@@ -16,7 +16,7 @@ targets:
         - path: SailboatRadio/Sources
           buildPhase: sources
           name: SailboatRadio
-        - path: ../assets/Assets.xcassets
+        - path: assets/Assets.xcassets
           buildPhase: sources
     dependencies:
       - framework: sailboatMedia/SailboatMedia.framework

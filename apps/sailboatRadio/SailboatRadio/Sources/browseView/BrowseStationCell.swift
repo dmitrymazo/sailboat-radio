@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SailboatMedia
 
 struct BrowseStationCell: View {
     
@@ -39,7 +40,7 @@ struct BrowseStationCell: View {
                 Image(uiImage: image)
                     .resizable()
             } else {
-                Image("music-note")
+                Image("music-note", bundle: Bundle(for: SailboatMedia.self))
                     .resizable()
             }
         }
