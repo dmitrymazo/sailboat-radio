@@ -22,7 +22,7 @@ struct FavoriteStationCell: View {
         VStack(spacing: 5) {
             stationImage
                 .frame(width: Constants.size, height: Constants.size)
-            Text("\(station.title)")
+            Text("\(station.name)")
                 .lineLimit(1)
         }
     }
@@ -52,16 +52,16 @@ struct FavoriteStationCell: View {
     init(station: FavoriteStationViewModel) {
         self.station = station
         
-        guard let imageUrl = station.imageUrl else { return }
-        try? service.load(url: imageUrl)
+        guard let iconUrl = station.iconUrl else { return }
+        try? service.load(url: iconUrl)
     }
     
 }
 
 struct FavoriteStationViewModel: Hashable {
     var id: String
-    var title: String
-    var descr: String
+    var name: String
+    var homepage: String?
     var audioUrl: URL
-    var imageUrl: URL?
+    var iconUrl: URL?
 }

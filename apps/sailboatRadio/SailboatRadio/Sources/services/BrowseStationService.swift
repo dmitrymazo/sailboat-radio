@@ -10,47 +10,45 @@ import Foundation
 
 final class BrowseStationService: RadioStationService {
     
-    func getList(completion: ([RadioStation]) -> Void) {
-        let stations = [
-            RadioStation(id: "fkfkgloj",
-                         title: "Masima",
-                         descr: "radio",
-                         genre: .pop,
-                         audioUrl: URL(string: "https://masima.rastream.com/masima-pramborsjakarta?awparams=stationid:masima-pramborsjakarta")!,
-                         imageUrl: URL(string: "https://cdn.freelogovectors.net/wp-content/uploads/2015/06/birthday.png")!),
-            RadioStation(id: "mtyumrntyn",
-                         title: "Country",
-                         descr: "radio",
-                         genre: .country,
-                         audioUrl: URL(string: "https://0n-country.radionetz.de/0n-country.aac")!,
-                         imageUrl: URL(string: "https://cdn.freelogovectors.net/wp-content/uploads/2015/06/shepherd.png")!),
-            RadioStation(id: "enynyen",
-                         title: "80sradio.co.uk",
-                         descr: "radio",
-                         genre: .pop,
-                         audioUrl: URL(string: "https://18193.live.streamtheworld.com/SAM03AAC226_SC")!,
-                         imageUrl: nil),
-            RadioStation(id: "dnnytyn",
-                         title: "977 Hits",
-                         descr: "",
-                         genre: .pop,
-                         audioUrl: URL(string: "https://19353.live.streamtheworld.com/977_HITS_SC")!,
-                         imageUrl: nil),
-            RadioStation(id: "therthern",
-                         title: "977 SMOOJAZZ",
-                         descr: "",
-                         genre: .pop,
-                         audioUrl: URL(string: "https://18853.live.streamtheworld.com/977_SMOOJAZZ_SC")!,
-                         imageUrl: nil),
-            RadioStation(id: "hh56h56h",
-                         title: "Calm radio",
-                         descr: "",
-                         genre: .pop,
-                         audioUrl: URL(string: "https://streams.calmradio.com:4428/stream")!,
-                         imageUrl: nil)
-        ]
+    private let url = URL(string: "http://95.179.139.106/json/stations/bycountryexact/austria")!
+    
+    private var task: URLSessionDataTask?
+    
+    func getList(completion: @escaping ([RadioStation]) -> Void) {
+        task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data {
+                do {
+                    let ttt = try JSONDecoder().decode([RadioStationDBModel].self, from: data)
+                    
+                    let stations: [RadioStation] = ttt.map {
+                        RadioStation(id: $0.stationuuid,
+                                     name: $0.name,
+                                     homepage: $0.homepage,
+                                     country: $0.country ?? "",
+                                     audioUrl: URL(string: $0.url)!,
+                                     iconUrl: URL(string: $0.favicon ?? ""))
+                    }
+                    
+                    completion(stations)
+                } catch let error {
+                    print(error)
+                }
+            }
+        }
         
-        completion(stations)
+        task?.resume()
     }
     
+    deinit {
+        task?.cancel()
+    }
+}
+
+struct RadioStationDBModel: Decodable {
+    var stationuuid: String
+    var name: String
+    var url: String
+    var favicon: String?
+    var country: String?
+    var homepage: String?
 }

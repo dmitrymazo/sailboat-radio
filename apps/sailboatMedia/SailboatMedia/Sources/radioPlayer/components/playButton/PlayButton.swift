@@ -14,8 +14,8 @@ final class PlayButton: SailboatVisualComponent, ButtonDelegate {
         static let playButtonImageName = "play-icon"
         static let pauseButtonImageName = "pause-icon"
     }
-    // move from here!!!!!
-    let serialQueue = DispatchQueue(label: "Emitter-\(UUID().uuidString)")
+    
+    private let serialQueue = DispatchQueue(label: "Emitter-\(UUID().uuidString)")
     
     weak var player: RadioPlayer? {
         didSet {

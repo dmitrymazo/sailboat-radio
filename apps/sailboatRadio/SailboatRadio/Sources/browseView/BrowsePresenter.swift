@@ -18,25 +18,28 @@ final class BrowsePresenter: BrowsePresenterProtocol {
     
     private func viewModel(from dbModel: RadioStation) -> BrowseStationViewModel {
         return BrowseStationViewModel(id: dbModel.id,
-                                        title: dbModel.title,
-                                        descr: dbModel.descr,
-                                        genre: "444",
-                                        audioUrl: dbModel.audioUrl,
-                                        imageUrl: dbModel.imageUrl)
+                                      name: dbModel.name,
+                                      homepage: dbModel.homepage,
+                                      audioUrl: dbModel.audioUrl,
+                                      iconUrl: dbModel.iconUrl)
     }
     
     private func load(station: BrowseStationViewModel) {
-        let item = RadioStationItem(title: station.title,
-                                    descr: station.descr,
+        let item = RadioStationItem(id: station.id,
+                                    name: station.name,
+                                    homepage: station.homepage,
                                     audioUrl: station.audioUrl,
-                                    imageUrl: station.imageUrl)
+                                    iconUrl: station.iconUrl)
         try? player?.load(station: item)
     }
     
     func load() {
         service.getList { [weak self] stations in
             guard let self = self else { return }
-            self.view?.model.stations = stations.map { self.viewModel(from: $0) }
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.view?.model.stations = stations.map { self.viewModel(from: $0) }
+            }
         }
     }
     

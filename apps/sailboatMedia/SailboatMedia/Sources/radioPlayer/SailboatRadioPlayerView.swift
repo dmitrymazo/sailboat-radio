@@ -11,7 +11,7 @@ public struct SailboatRadioPlayerView: View {
     
     private struct Constants {
         static let width: CGFloat = 90
-        static let opacity = 0.2
+        static let opacity = 0.3
     }
     
     let color: Color

@@ -25,8 +25,8 @@ struct BrowseStationCell: View {
             stationImage
                 .frame(width: Constants.size, height: Constants.size)
             VStack(alignment: .leading, spacing: 2) {
-                Text("\(station.title)")
-                Text("\(station.descr)")
+                Text("\(station.name)")
+                Text("\(station.homepage ?? "")")
             }
             Spacer()
             favoriteButton
@@ -58,17 +58,17 @@ struct BrowseStationCell: View {
     init(station: BrowseStationViewModel) {
         self.station = station
         
-        guard let imageUrl = station.imageUrl else { return }
-        try? service.load(url: imageUrl)
+        guard let iconUrl = station.iconUrl else { return }
+        try? service.load(url: iconUrl)
     }
     
 }
 
 struct BrowseStationViewModel {
     var id: String
-    var title: String
-    var descr: String
-    var genre: String
+    var name: String
+    var homepage: String?
+    var country: String?
     var audioUrl: URL
-    var imageUrl: URL?
+    var iconUrl: URL?
 }

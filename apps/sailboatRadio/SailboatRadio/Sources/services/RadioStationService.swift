@@ -9,5 +9,5 @@
 import Foundation
 
 protocol RadioStationService {
-    func getList(completion: ([RadioStation]) -> Void)
+    func getList(completion: @escaping ([RadioStation]) -> Void)
 }

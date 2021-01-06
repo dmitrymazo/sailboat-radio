@@ -18,17 +18,18 @@ final class HomePresenter: HomePresenterProtocol {
     
     private func viewModel(from dbModel: RadioStation) -> FavoriteStationViewModel {
         return FavoriteStationViewModel(id: dbModel.id,
-                                        title: dbModel.title,
-                                        descr: dbModel.descr,
+                                        name: dbModel.name,
+                                        homepage: dbModel.homepage,
                                         audioUrl: dbModel.audioUrl,
-                                        imageUrl: dbModel.imageUrl)
+                                        iconUrl: dbModel.iconUrl)
     }
     
     private func load(station: FavoriteStationViewModel) {
-        let item = RadioStationItem(title: station.title,
-                                    descr: station.descr,
+        let item = RadioStationItem(id: station.id,
+                                    name: station.name,
+                                    homepage: station.homepage,
                                     audioUrl: station.audioUrl,
-                                    imageUrl: station.imageUrl)
+                                    iconUrl: station.iconUrl)
         try? player?.load(station: item)
     }
     

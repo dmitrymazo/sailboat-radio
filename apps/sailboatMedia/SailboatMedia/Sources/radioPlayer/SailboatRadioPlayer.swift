@@ -120,18 +120,21 @@ extension SailboatRadioPlayer: AudioPlayerDelegate {
 extension SailboatRadioPlayer: ObservableObject { }
 
 public struct RadioStationItem {
-    var title: String
-    var descr: String?
+    var id: String
+    var name: String
+    var homepage: String?
     var audioUrl: URL
-    var imageUrl: URL?
+    var iconUrl: URL?
     
-    public init(title: String,
-                descr: String,
+    public init(id: String,
+                name: String,
+                homepage: String?,
                 audioUrl: URL,
-                imageUrl: URL?) {
-        self.title = title
-        self.descr = descr
+                iconUrl: URL?) {
+        self.id = id
+        self.name = name
+        self.homepage = homepage
         self.audioUrl = audioUrl
-        self.imageUrl = imageUrl
+        self.iconUrl = iconUrl
     }
 }

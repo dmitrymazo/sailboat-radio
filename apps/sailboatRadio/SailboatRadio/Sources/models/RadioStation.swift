@@ -9,18 +9,12 @@
 import Foundation
 
 struct RadioStation: DatabaseEntity {
-    enum RadioStationGenre {
-        case rock
-        case pop
-        case country
-        case news
-    }
     var id: String
-    var title: String
-    var descr: String
-    var genre: RadioStationGenre
+    var name: String
+    var homepage: String?
+    var country: String
     var audioUrl: URL
-    var imageUrl: URL?
+    var iconUrl: URL?
 }
 
 protocol DatabaseEntity: Hashable, Identifiable {

@@ -21,7 +21,7 @@ struct TabContentView: View {
     }
     
     private func browseView(player: SailboatRadioPlayer) -> BrowseView {
-        let presenter = BrowsePresenter(player: player, service: FavouriteStationService())
+        let presenter = BrowsePresenter(player: player, service: BrowseStationService())
         let view = BrowseView(model: BrowseViewModel(), presenter: presenter, playerView: player.view)
         presenter.view = view
         
