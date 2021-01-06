@@ -21,7 +21,6 @@ struct StationImageView: View {
     var body: some View {
         Image(model.imageName, bundle: Bundle(for: SailboatMedia.self))
             .resizable()
-            .background(Color.red)
             .frame(width: Constants.size, height: Constants.size)
     }
     

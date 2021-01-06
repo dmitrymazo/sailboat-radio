@@ -14,7 +14,7 @@ public struct SailboatRadioPlayerView: View {
         static let opacity = 0.2
     }
     
-    let color: Color = .green
+    let color: Color
     let components: [AnyView]
     
     private var mainView: some View {

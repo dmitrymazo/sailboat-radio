@@ -7,6 +7,7 @@
 
 import Foundation
 import Observable
+import struct SwiftUI.Color
 
 public final class SailboatRadioPlayer: RadioPlayer {
     
@@ -61,11 +62,11 @@ public final class SailboatRadioPlayer: RadioPlayer {
     
     // MARK: - Init
     
-    public init() {
+    public init(color: Color) {
         self.components = SailboatRadioComponents.getList()
         let visualComponents = components.compactMap { $0 as? SailboatVisualComponent }
         
-        view = SailboatRadioPlayerView(components: visualComponents.compactMap { $0.view })
+        view = SailboatRadioPlayerView(color: color, components: visualComponents.compactMap { $0.view })
         player.delegate = self
         
         components.forEach { component in

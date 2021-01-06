@@ -23,7 +23,6 @@ struct BrowseStationCell: View {
     private var mainView: some View {
         HStack(spacing: 10) {
             stationImage
-                .background(Color.red)
                 .frame(width: Constants.size, height: Constants.size)
             VStack(alignment: .leading, spacing: 2) {
                 Text("\(station.title)")
@@ -32,6 +31,9 @@ struct BrowseStationCell: View {
             Spacer()
             favoriteButton
         }
+        .padding(5)
+        .background(Color.gray.opacity(0.3))
+        .cornerRadius(3)
     }
     
     private var stationImage: some View {
@@ -50,16 +52,14 @@ struct BrowseStationCell: View {
     
     var body: some View {
         mainView
-            .padding(.bottom, 6)
             .padding(.horizontal, 10)
-            .onAppear {
-                guard let imageUrl = station.imageUrl else { return }
-                try? service.load(url: imageUrl)
-            }
     }
     
     init(station: BrowseStationViewModel) {
         self.station = station
+        
+        guard let imageUrl = station.imageUrl else { return }
+        try? service.load(url: imageUrl)
     }
     
 }

@@ -23,7 +23,6 @@ struct HomeView: View {
     
     private var stationList: some View {
         ScrollView {
-            Text("")
             ForEach(ArrayBuilder.getMatrix(from: model.stations, numberOfColumns: Constants.numberOfColumns)
                     , id: \.self) { row in
                 HStack(spacing: 3) {
@@ -39,13 +38,13 @@ struct HomeView: View {
     }
     
     var body: some View {
-        Group {
+        NavigationView {
             VStack {
                 stationList
                 playerView
             }.onAppear {
                 presenter.load()
-            }
+            }.navigationBarTitle("Favourites", displayMode: .inline)
         }
     }
     

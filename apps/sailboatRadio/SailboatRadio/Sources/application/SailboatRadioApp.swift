@@ -12,7 +12,7 @@ import SailboatMedia
 struct SailboatRadioApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
-    private var player = SailboatRadioPlayer()
+    private var player = SailboatRadioPlayer(color: Color(UIColor.brown))
     
     var body: some Scene {
         WindowGroup {

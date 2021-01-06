@@ -29,13 +29,13 @@ struct BrowseView: View {
     }
     
     var body: some View {
-        Group {
+        NavigationView {
             VStack {
                 stationList
                 playerView
             }.onAppear {
                 presenter.load()
-            }
+            }.navigationBarTitle("Browse", displayMode: .inline)
         }
     }
     

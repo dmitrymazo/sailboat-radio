@@ -13,15 +13,11 @@ import Combine
 final class ImageLoader: ObservableObject {
     
     @Published
-    private(set) var isLoaded = false
-    
-    @Published
     private(set) var image: UIImage?
     
     private var task: URLSessionDataTask?
     
     func load(url: URL) throws {
-        
         self.task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             
             guard let data = data
@@ -29,8 +25,7 @@ final class ImageLoader: ObservableObject {
                 return
             }
             
-            DispatchQueue.main.async {                
-                self?.isLoaded = true
+            DispatchQueue.main.async {
                 self?.image = UIImage(data: data)
             }
         }

@@ -21,18 +21,16 @@ struct FavoriteStationCell: View {
     private var mainView: some View {
         VStack(spacing: 5) {
             stationImage
-                .background(Color.red)
                 .frame(width: Constants.size, height: Constants.size)
             Text("\(station.title)")
                 .lineLimit(1)
-            Text("\(service.isLoaded ? "loaded" : "no")")
         }
     }
     
     private var stationImage: some View {
         Group {
-            if service.isLoaded {
-                Image(uiImage: service.image!)
+            if let image = service.image {
+                Image(uiImage: image)
                     .resizable()
                     .cornerRadius(3)
             } else {
@@ -49,14 +47,13 @@ struct FavoriteStationCell: View {
             mainView
         }.padding(.bottom, 10)
         .padding(.horizontal, 6)
-        .onAppear {
-            guard let imageUrl = station.imageUrl else { return }
-            try? service.load(url: imageUrl)
-        }
     }
     
     init(station: FavoriteStationViewModel) {
         self.station = station
+        
+        guard let imageUrl = station.imageUrl else { return }
+        try? service.load(url: imageUrl)
     }
     
 }
