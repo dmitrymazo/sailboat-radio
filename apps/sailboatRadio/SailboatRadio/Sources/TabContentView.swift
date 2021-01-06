@@ -14,10 +14,18 @@ struct TabContentView: View {
     
     private func homeView(player: SailboatRadioPlayer) -> HomeView {
         let presenter = HomePresenter(player: player, service: FavouriteStationService())
-        let homeView = HomeView(model: HomeViewModel(), presenter: presenter, playerView: player.view)
-        presenter.view = homeView
+        let view = HomeView(model: HomeViewModel(), presenter: presenter, playerView: player.view)
+        presenter.view = view
         
-        return homeView
+        return view
+    }
+    
+    private func browseView(player: SailboatRadioPlayer) -> BrowseView {
+        let presenter = BrowsePresenter(player: player, service: FavouriteStationService())
+        let view = BrowseView(model: BrowseViewModel(), presenter: presenter, playerView: player.view)
+        presenter.view = view
+        
+        return view
     }
     
     var body: some View {
@@ -28,7 +36,7 @@ struct TabContentView: View {
                         Image(systemName: "house.fill")
                         Text("Home")
                     }
-                BrowseView(playerView: player.view)
+                browseView(player: player)
                     .tabItem {
                         Image(systemName: "magnifyingglass.circle.fill")
                         Text("Browse")

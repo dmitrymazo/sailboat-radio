@@ -49,7 +49,6 @@ struct HomeView: View {
         }
     }
     
-    
 }
 
 final class HomeViewModel: ObservableObject {

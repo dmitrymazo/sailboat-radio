@@ -1,5 +1,5 @@
 //
-//  HomePresenter.swift
+//  BrowsePresenter.swift
 //  SailboatRadio
 //
 //  Created by Dmitry Mazo on 1/6/21.
@@ -9,22 +9,23 @@
 import Foundation
 import SailboatMedia
 
-final class HomePresenter: HomePresenterProtocol {
+final class BrowsePresenter: BrowsePresenterProtocol {
     
-    private weak var player: SailboatRadioPlayer?
+    private weak var player: SailboatRadioPlayer?    
     private let service: RadioStationService
     
-    var view: HomeView?
+    var view: BrowseView?
     
-    private func viewModel(from dbModel: RadioStation) -> FavoriteStationViewModel {
-        return FavoriteStationViewModel(id: dbModel.id,
+    private func viewModel(from dbModel: RadioStation) -> BrowseStationViewModel {
+        return BrowseStationViewModel(id: dbModel.id,
                                         title: dbModel.title,
                                         descr: dbModel.descr,
+                                        genre: "444",
                                         audioUrl: dbModel.audioUrl,
                                         imageUrl: dbModel.imageUrl)
     }
     
-    private func load(station: FavoriteStationViewModel) {
+    private func load(station: BrowseStationViewModel) {
         let item = RadioStationItem(title: station.title,
                                     descr: station.descr,
                                     audioUrl: station.audioUrl,
@@ -39,7 +40,7 @@ final class HomePresenter: HomePresenterProtocol {
         }
     }
     
-    func stationTapped(station: FavoriteStationViewModel) {
+    func stationTapped(station: BrowseStationViewModel) {
         load(station: station)
         player?.play()
     }
@@ -51,7 +52,7 @@ final class HomePresenter: HomePresenterProtocol {
     
 }
 
-protocol HomePresenterProtocol: AnyObject {
+protocol BrowsePresenterProtocol {
     func load()
-    func stationTapped(station: FavoriteStationViewModel)
+    func stationTapped(station: BrowseStationViewModel)
 }
