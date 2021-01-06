@@ -122,12 +122,15 @@ public struct RadioStationItem {
     var title: String
     var descr: String?
     var audioUrl: URL
+    var imageUrl: URL?
     
     public init(title: String,
                 descr: String,
-                audioUrl: URL) {
+                audioUrl: URL,
+                imageUrl: URL?) {
         self.title = title
         self.descr = descr
         self.audioUrl = audioUrl
+        self.imageUrl = imageUrl
     }
 }

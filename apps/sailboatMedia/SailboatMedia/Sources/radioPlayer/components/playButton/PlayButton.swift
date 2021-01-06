@@ -38,29 +38,41 @@ final class PlayButton: SailboatVisualComponent, ButtonDelegate {
     
     private var disposal = Disposal()
     
-    private var buttonView: PlayButtonView?
+    var buttonView: PlayButtonView?
     
     var view: AnyView? {
         buttonView != nil ? AnyView(buttonView) : nil
     }
     
-    var isPlaying: Bool {
+    var isPlayButton: Bool? {
         didSet {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                self.buttonView?.imageName = self.isPlaying ? Constants.playButtonImageName : Constants.pauseButtonImageName
+                switch self.isPlayButton {
+                case true:
+                    self.buttonView?.model.imageName = Constants.playButtonImageName
+                case false:
+                    self.buttonView?.model.imageName = Constants.pauseButtonImageName
+                default:
+                    self.buttonView?.model.imageName = nil
+                }
             }
         }
     }
     
     private func update(state: SailboatPlayerState) {
-        isPlaying = (state == .playing)
+        switch state {
+        case .playing:
+            isPlayButton = false
+        case .paused:
+            isPlayButton = true
+        default:
+            isPlayButton = nil
+        }
     }
     
-    init(view: PlayButtonView?) {
-        self.buttonView = view
-        isPlaying = false
-        view?.imageName = Constants.pauseButtonImageName
+    init() {
+        isPlayButton = true
     }
     
 }

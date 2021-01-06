@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
+import Observable
 
 final class StationImageComponent: SailboatVisualComponent {
+    let serialQueue = DispatchQueue(label: "Emitter-\(UUID().uuidString)")
     
     weak var player: RadioPlayer?
+    
+    private var disposal = Disposal()
     
     private let imageView: StationImageView?
     

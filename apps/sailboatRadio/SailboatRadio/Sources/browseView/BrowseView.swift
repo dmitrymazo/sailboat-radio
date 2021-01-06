@@ -13,7 +13,9 @@ struct BrowseView: View {
     @ObservedObject
     private var service = BrowseViewService()
     
-    private weak var player: SailboatRadioPlayer?
+    var playerView: SailboatRadioPlayerView
+    
+//    private weak var player: SailboatRadioPlayer?
     
     private var stationList: some View {
         ScrollView {
@@ -22,8 +24,8 @@ struct BrowseView: View {
                     let station = viewModel(from: dbModel)
                     BrowseStationCell(station: station)
                         .onTapGesture {
-                            load(station: station)
-                            player?.play()
+//                            load(station: station)
+//                            player?.play()
                         }
                 }
             }.padding(.horizontal, 3)
@@ -35,7 +37,7 @@ struct BrowseView: View {
             if service.isLoaded {
                 VStack {
                     stationList
-                    player?.view
+                    playerView
                 }
             } else {
                 Text("Loading...")
@@ -54,15 +56,17 @@ struct BrowseView: View {
                                       imageUrl: dbModel.imageUrl)
     }
     
-    private func load(station: BrowseStationViewModel) {
-        let item = RadioStationItem(title: station.title,
-                                    descr: station.descr,
-                                    audioUrl: station.audioUrl)
-        try? player?.load(station: item)
-    }
+//    private func load(station: BrowseStationViewModel) {
+//        let item = RadioStationItem(title: station.title,
+//                                    descr: station.descr,
+//                                    audioUrl: station.audioUrl,
+//                                    imageUrl: station.imageUrl)
+//        try? player?.load(station: item)
+//    }
     
-    init(player: SailboatRadioPlayer) {
-        self.player = player
+    init(playerView: SailboatRadioPlayerView) {
+//        self.player = player
+        self.playerView = playerView
     }
     
 }

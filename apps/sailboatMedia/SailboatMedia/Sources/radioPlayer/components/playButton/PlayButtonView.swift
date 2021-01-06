@@ -13,22 +13,29 @@ struct PlayButtonView: View {
         static let size: CGFloat = 50
     }
     
-    weak var delegate: ButtonDelegate?
+    @ObservedObject
+    var model: PlayButtonModel
     
-    @State
-    var imageName = ""
+    var presenter: ButtonDelegate
     
     var body: some View {
-        Image(imageName, bundle: Bundle(for: SailboatMedia.self))
-            .resizable()
-            .frame(width: Constants.size, height: Constants.size)
-            .onTapGesture {
-                delegate?.tapped()
-            }
+        if let imageName = model.imageName {
+            Image(imageName, bundle: Bundle(for: SailboatMedia.self))
+                .resizable()
+                .frame(width: Constants.size, height: Constants.size)
+                .onTapGesture {
+                    presenter.tapped()
+                }
+        }
     }
     
 }
 
 protocol ButtonDelegate: AnyObject {
     func tapped()
+}
+
+final class PlayButtonModel: ObservableObject {
+    @Published
+    var imageName: String? = nil
 }

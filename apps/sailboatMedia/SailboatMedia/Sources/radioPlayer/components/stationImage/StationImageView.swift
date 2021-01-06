@@ -15,14 +15,23 @@ struct StationImageView: View {
     
     weak var delegate: ButtonDelegate?
     
-    @State
-    var imageName = ""
+    @ObservedObject
+    var model: StationImageModel
     
     var body: some View {
-        Image(imageName)
+        Image(model.imageName, bundle: Bundle(for: SailboatMedia.self))
             .resizable()
             .background(Color.red)
             .frame(width: Constants.size, height: Constants.size)
     }
     
+}
+
+final class StationImageModel: ObservableObject {
+    @Published
+    var imageName = ""
+    
+    init(imageName: String) {
+        self.imageName = imageName
+    }
 }

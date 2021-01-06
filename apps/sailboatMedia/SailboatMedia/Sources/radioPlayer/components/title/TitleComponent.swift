@@ -17,27 +17,23 @@ final class TitleComponent: SailboatVisualComponent {
             guard let player = self.player else { return }
             player.currentRadioStationObserver
                 .observe(serialQueue) { [weak self] (station, _) in
-                    self?.title = station?.title ?? ""
-                    self?.descr = station?.descr ?? ""
+                    DispatchQueue.main.async { [weak self] in
+                        self?.title = station?.title ?? ""
+                        self?.descr = station?.descr ?? ""
+                    }
                 }.add(to: &disposal)
         }
     }
     
     private(set) var title: String {
         didSet {
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.titleView?.model.title = self.title
-            }
+            self.titleView?.model.title = self.title
         }
     }
     
     private(set) var descr: String {
         didSet {
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.titleView?.model.descr = self.descr
-            }
+            self.titleView?.model.descr = self.descr
         }
     }
     

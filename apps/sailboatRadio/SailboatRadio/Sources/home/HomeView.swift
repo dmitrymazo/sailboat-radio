@@ -15,21 +15,22 @@ struct HomeView: View {
     }
     
     @ObservedObject
-    private var service = FavouriteViewService()
+    var model: HomeViewModel
     
-    private weak var player: SailboatRadioPlayer?
+    var presenter: HomePresenterProtocol
+    
+    var playerView: SailboatRadioPlayerView
     
     private var stationList: some View {
         ScrollView {
-            ForEach(ArrayBuilder.getMatrix(from: service.stations, numberOfColumns: Constants.numberOfColumns)
+            Text("")
+            ForEach(ArrayBuilder.getMatrix(from: model.stations, numberOfColumns: Constants.numberOfColumns)
                     , id: \.self) { row in
                 HStack(spacing: 3) {
-                    ForEach(row, id: \.id) { dbModel in
-                        let station = viewModel(from: dbModel)
+                    ForEach(row, id: \.id) { station in
                         FavoriteStationCell(station: station)
                             .onTapGesture {
-                                load(station: station)
-                                player?.play()
+                                presenter.stationTapped(station: station)
                             }
                     }
                 }
@@ -39,37 +40,19 @@ struct HomeView: View {
     
     var body: some View {
         Group {
-            if service.isLoaded {
-                VStack {
-                    stationList
-                    player?.view
-                }
-            } else {
-                Text("Loading...")
+            VStack {
+                stationList
+                playerView
+            }.onAppear {
+                presenter.load()
             }
-        }.onAppear {
-            service.load()
         }
     }
     
-    private func viewModel(from dbModel: RadioStation) -> FavoriteStationViewModel {
-        return FavoriteStationViewModel(id: dbModel.id,
-                                        title: dbModel.title,
-                                        descr: dbModel.descr,
-                                        genre: "1111",
-                                        audioUrl: dbModel.audioUrl,
-                                        imageUrl: dbModel.imageUrl)
-    }
     
-    private func load(station: FavoriteStationViewModel) {
-        let item = RadioStationItem(title: station.title,
-                                    descr: station.descr,
-                                    audioUrl: station.audioUrl)
-        try? player?.load(station: item)
-    }
-    
-    init(player: SailboatRadioPlayer) {
-        self.player = player
-    }
-    
+}
+
+final class HomeViewModel: ObservableObject {
+    @Published
+    var stations = [FavoriteStationViewModel]()
 }

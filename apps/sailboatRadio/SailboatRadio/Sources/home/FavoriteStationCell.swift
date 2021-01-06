@@ -25,13 +25,14 @@ struct FavoriteStationCell: View {
                 .frame(width: Constants.size, height: Constants.size)
             Text("\(station.title)")
                 .lineLimit(1)
+            Text("\(service.isLoaded ? "loaded" : "no")")
         }
     }
     
     private var stationImage: some View {
         Group {
-            if let image = service.image {
-                Image(uiImage: image)
+            if service.isLoaded {
+                Image(uiImage: service.image!)
                     .resizable()
                     .cornerRadius(3)
             } else {
@@ -60,11 +61,10 @@ struct FavoriteStationCell: View {
     
 }
 
-struct FavoriteStationViewModel {
+struct FavoriteStationViewModel: Hashable {
     var id: String
     var title: String
     var descr: String
-    var genre: String
     var audioUrl: URL
     var imageUrl: URL?
 }
