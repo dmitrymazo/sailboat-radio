@@ -8,18 +8,15 @@
 
 import Foundation
 
-class BrowseStationService: RadioStationService {
+final class BrowseStationService: RadioStationService {
     
     static let endpoint = "https://nl1.api.radio-browser.info"
     private static let format = "json"
-    private static let limit = 2
-    open var searchTerm: String? {
-        ""
-    }
+    static let limit = 30
     
     private let router: Router
     
-    func getList(offset: Int, searchValue: String?, completion: @escaping ([RadioStation]) -> Void) {
+    private func getList(offset: Int, searchTerm: String?, searchValue: String?, completion: @escaping ([RadioStation]) -> Void) {
         var search = ""
         if let searchTerm = searchTerm
            , let searchValue = searchValue {
@@ -34,9 +31,9 @@ class BrowseStationService: RadioStationService {
             if let data = data
                , error == nil {
                 do {
-                    let ttt = try JSONDecoder().decode([RadioStationDBModel].self, from: data)
+                    let decodedStations = try JSONDecoder().decode([RadioStationDBModel].self, from: data)
                     
-                    let stations: [RadioStation] = ttt.map {
+                    let stations: [RadioStation] = decodedStations.map {
                         RadioStation(id: $0.stationuuid,
                                      name: $0.name,
                                      homepage: $0.homepage,
@@ -61,18 +58,20 @@ class BrowseStationService: RadioStationService {
         router.resume()
     }
     
+    func getAll(offset: Int, completion: @escaping ([RadioStation]) -> Void) {
+        getList(offset: offset, searchTerm: nil, searchValue: nil, completion: completion)
+    }
+    
+    func getAllByCountry(offset: Int, searchValue: String?, completion: @escaping ([RadioStation]) -> Void) {
+        getList(offset: offset, searchTerm: "bycountryexact", searchValue: searchValue, completion: completion)
+    }
+    
     init(router: Router) {
         self.router = router
     }
     
     deinit {
         router.cancel()
-    }
-}
-
-final class BrowseByCountryService: BrowseStationService {
-    override var searchTerm: String {
-        "bycountryexact"
     }
 }
 

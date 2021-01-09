@@ -16,8 +16,8 @@ final class RadioStationServiceTests: XCTestCase {
         
         let router = MockNetworkRouter()
         let service = BrowseStationService(router: router)
-        service.getList(offset: 0, searchValue: nil) { stations in
-            XCTAssertEqual(router.requestUrl?.absoluteString, "\(BrowseStationService.endpoint)/json/stations?limit=2")
+        service.getAll(offset: 0) { stations in
+            XCTAssertEqual(router.requestUrl?.absoluteString, "\(BrowseStationService.endpoint)/json/stations?limit=\(BrowseStationService.limit)")
             expectation.fulfill()
         }
         
@@ -28,9 +28,9 @@ final class RadioStationServiceTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Get list of stations")
         
         let router = MockNetworkRouter()
-        let service = BrowseByCountryService(router: router)
-        service.getList(offset: 0, searchValue: "TestCountry") { stations in
-            XCTAssertEqual(router.requestUrl?.absoluteString, "\(BrowseStationService.endpoint)/json/stations/bycountryexact/TestCountry?limit=2")
+        let service = BrowseStationService(router: router)
+        service.getAllByCountry(offset: 0, searchValue: "TestCountry") { stations in
+            XCTAssertEqual(router.requestUrl?.absoluteString, "\(BrowseStationService.endpoint)/json/stations/bycountryexact/TestCountry?limit=\(BrowseStationService.limit)")
             expectation.fulfill()
         }
         
@@ -50,5 +50,4 @@ final class MockNetworkRouter: Router {
     func resume() { }
     
     func cancel() { }
-    
 }

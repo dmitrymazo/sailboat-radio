@@ -34,7 +34,8 @@ final class BrowsePresenter: BrowsePresenterProtocol {
     }
     
     func load() {
-        service.getList(offset: 0, searchValue: nil) { [weak self] stations in
+        service.getAllByCountry(offset: 0, searchValue: "Austria") { [weak self] stations in
+//        service.getAll(offset: 0) { [weak self] stations in
             guard let self = self else { return }
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }

@@ -9,5 +9,7 @@
 import Foundation
 
 protocol RadioStationService {
-    func getList(offset: Int, searchValue: String?, completion: @escaping ([RadioStation]) -> Void)
+    func getAll(offset: Int, completion: @escaping ([RadioStation]) -> Void)
+    
+    func getAllByCountry(offset: Int, searchValue: String?, completion: @escaping ([RadioStation]) -> Void)
 }
