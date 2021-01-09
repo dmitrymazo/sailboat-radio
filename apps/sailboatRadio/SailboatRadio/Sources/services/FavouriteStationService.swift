@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class FavouriteStationService: RadioStationService {
+final class FavouriteStationService {
     
     func getList(completion: @escaping ([RadioStation]) -> Void) {
         let stations: [RadioStation] = [

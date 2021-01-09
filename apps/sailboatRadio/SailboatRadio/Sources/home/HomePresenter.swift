@@ -12,7 +12,7 @@ import SailboatMedia
 final class HomePresenter: HomePresenterProtocol {
     
     private weak var player: SailboatRadioPlayer?
-    private let service: RadioStationService
+    private let service: FavouriteStationService
     
     var view: HomeView?
     
@@ -45,7 +45,7 @@ final class HomePresenter: HomePresenterProtocol {
         player?.play()
     }
     
-    init(player: SailboatRadioPlayer, service: RadioStationService) {
+    init(player: SailboatRadioPlayer, service: FavouriteStationService) {
         self.player = player
         self.service = service
     }

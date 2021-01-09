@@ -8,15 +8,31 @@
 
 import Foundation
 
-final class BrowseStationService: RadioStationService {
+class BrowseStationService: RadioStationService {
     
-    private let url = URL(string: "http://95.179.139.106/json/stations/bycountryexact/austria")!
+    static let endpoint = "https://nl1.api.radio-browser.info"
+    private static let format = "json"
+    private static let limit = 2
+    open var searchTerm: String? {
+        ""
+    }
     
-    private var task: URLSessionDataTask?
+    private let router: Router
     
-    func getList(completion: @escaping ([RadioStation]) -> Void) {
-        task = URLSession.shared.dataTask(with: url) { data, response, error in
-            if let data = data {
+    func getList(offset: Int, searchValue: String?, completion: @escaping ([RadioStation]) -> Void) {
+        var search = ""
+        if let searchTerm = searchTerm
+           , let searchValue = searchValue {
+            search = "/\(searchTerm)/\(searchValue)"
+        }
+        
+        let urlString = "\(Self.endpoint)/\(Self.format)/stations\(search)?limit=\(Self.limit)"
+        
+        guard let url = URL(string: urlString) else { return }
+        
+        router.create(for: url) { data, response, error in
+            if let data = data
+               , error == nil {
                 do {
                     let ttt = try JSONDecoder().decode([RadioStationDBModel].self, from: data)
                     
@@ -32,15 +48,31 @@ final class BrowseStationService: RadioStationService {
                     completion(stations)
                 } catch let error {
                     print(error)
+                    // TO DO: Result.error
+                    completion([])
                 }
+            } else {
+                print(error)
+                // TO DO: Result.error
+                completion([])
             }
         }
         
-        task?.resume()
+        router.resume()
+    }
+    
+    init(router: Router) {
+        self.router = router
     }
     
     deinit {
-        task?.cancel()
+        router.cancel()
+    }
+}
+
+final class BrowseByCountryService: BrowseStationService {
+    override var searchTerm: String {
+        "bycountryexact"
     }
 }
 
